@@ -7,14 +7,15 @@ import React, { useState } from "react";
 
 import { simpsonUrl } from "./common/axios";
 
-//types
+// types
 import { ResponseUrl } from "./common/types";
 
-//movks
+// mocks
 import { dataMocks } from "./common/mocks";
 
-//styles
+// styles
 import "./App.css";
+import "./styles/carousel.css";
 
 function App() {
   const [data, setData] = useState<ResponseUrl[]>([]);
@@ -35,7 +36,7 @@ function App() {
     onSubmit: async (values) => {
       try {
         const response = await axios.post(
-          "'https://testfrontend.co/v1/testsimpsons",
+          "https://testfrontend.co/v1/testsimpsons",
           {
             name: selectedCharacter?.character,
             quote: selectedCharacter?.quote,
@@ -91,6 +92,8 @@ function App() {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    centerMode: true, // Center the current slide
+    centerPadding: "20px", // Space on each side
     responsive: [
       {
         breakpoint: 1024,
@@ -114,21 +117,26 @@ function App() {
         <div className="w-full my-8">
           <Slider {...settings}>
             {data.map((character) => (
-              <div key={character.quote} className="px-4">
-                <img
-                  src={character.image}
-                  alt={character.character}
-                  className="h-48 w-48 object-cover mx-auto rounded-lg"
-                />
+              <div
+                key={character.quote}
+                className="px-4 flex flex-col items-center"
+              >
+                <div className="relative flex flex-col items-center bg-white shadow-lg rounded-lg p-4">
+                  <img
+                    src={character.image}
+                    alt={character.character}
+                    className="h-48 w-48 object-cover rounded-lg border border-gray-200"
+                  />
+                  <button
+                    onClick={() => openModal(character)}
+                    className="absolute bottom-2 right-2 text-blue-600 hover:text-blue-800 bg-white p-2 rounded-full shadow-md"
+                  >
+                    <FaEye className="inline w-5 h-5" />
+                  </button>
+                </div>
                 <h1 className="text-center mt-4 text-xl font-semibold">
                   {character.character}
                 </h1>
-                <button
-                  onClick={() => openModal(character)}
-                  className="text-blue-600 hover:text-blue-800 mt-2"
-                >
-                  <FaEye className="inline w-5 h-5" />
-                </button>
               </div>
             ))}
           </Slider>
@@ -156,7 +164,7 @@ function App() {
                       onClick={() => openModal(character)}
                       className="text-blue-600 hover:text-blue-800"
                     >
-                      <FaEye className="inline w-5 h-5" /> {/* Ícono del ojo */}
+                      <FaEye className="inline w-5 h-5" />
                     </button>
                   </td>
                 </tr>

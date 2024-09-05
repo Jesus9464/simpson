@@ -1,0 +1,31 @@
+/* Estilos para el carrusel */
+.slick-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.slick-slide img {
+  width: 100%;
+  max-width: 200px; /* Ajusta según sea necesario */
+}
+
+/* Estilos para el modal */
+@media (max-width: 640px) {
+  .modal-content {
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .modal-content img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Opcional: ajuste para el botón del ojo en dispositivos móviles */
+@media (max-width: 640px) {
+  .slick-slide button {
+    right: 10px;
+    bottom: 10px;
+  }
+}
